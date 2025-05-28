@@ -1,1 +1,125 @@
+// File: HotelCheckInSystem.java
+// Updated: Fixed class name, corrected method typo, structured for project use
 
+import java.sql.*;
+import java.util.Scanner;
+
+public class HotelCheckInSystem {
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/hotel_db";
+    private static final String DB_USER = "root";
+    private static final String DB_PASS = "your_password";
+
+    public static void main(String[] args) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS);
+             Scanner scanner = new Scanner(System.in)) {
+
+            while (true) {
+                System.out.println("\n1. Register Guest\n2. Show Available Rooms\n3. Book Room\n4. Check-Out\n5. Exit");
+                System.out.print("Choose an option: ");
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (choice) {
+                    case 1 -> registerGuest(conn, scanner);
+                    case 2 -> showAvailableRooms(conn);
+                    case 3 -> bookRoom(conn, scanner);
+                    case 4 -> checkOut(conn, scanner);
+                    case 5 -> System.exit(0);
+                    default -> System.out.println("Invalid option.");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void registerGuest(Connection conn, Scanner scanner) throws SQLException {
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter phone: ");
+        String phone = scanner.nextLine();
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter ID proof: ");
+        String idProof = scanner.nextLine();
+
+        String sql = "INSERT INTO guests (name, phone, email, id_proof) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            stmt.setString(2, phone);
+            stmt.setString(3, email);
+            stmt.setString(4, idProof);
+            stmt.executeUpdate();
+            System.out.println("Guest registered successfully.");
+        }
+    }
+
+    private static void showAvailableRooms(Connection conn) throws SQLException {
+        String sql = "SELECT * FROM rooms WHERE is_available = TRUE";
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            System.out.println("\nAvailable Rooms:");
+            while (rs.next()) {
+                System.out.println("Room ID: " + rs.getInt("room_id") +
+                        ", Room Number: " + rs.getString("room_number") +
+                        ", Type: " + rs.getString("room_type"));
+            }
+        }
+    }
+
+    private static void bookRoom(Connection conn, Scanner scanner) throws SQLException {
+        System.out.print("Enter Guest ID: ");
+        int guestId = scanner.nextInt();
+        System.out.print("Enter Room ID to book: ");
+        int roomId = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter Check-In Date (YYYY-MM-DD): ");
+        String checkIn = scanner.nextLine();
+        System.out.print("Enter Check-Out Date (YYYY-MM-DD): ");
+        String checkOut = scanner.nextLine();
+
+        String bookingSQL = "INSERT INTO bookings (guest_id, room_id, check_in, check_out) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(bookingSQL)) {
+            stmt.setInt(1, guestId);
+            stmt.setInt(2, roomId);
+            stmt.setDate(3, Date.valueOf(checkIn));
+            stmt.setDate(4, Date.valueOf(checkOut));
+            stmt.executeUpdate();
+        }
+
+        String updateRoomSQL = "UPDATE rooms SET is_available = FALSE WHERE room_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(updateRoomSQL)) {
+            stmt.setInt(1, roomId);
+            stmt.executeUpdate();
+            System.out.println("Room booked successfully.");
+        }
+    }
+
+    private static void checkOut(Connection conn, Scanner scanner) throws SQLException {
+        System.out.print("Enter Booking ID for check-out: ");
+        int bookingId = scanner.nextInt();
+
+        String getRoomSQL = "SELECT room_id FROM bookings WHERE booking_id = ?";
+        int roomId = -1;
+        try (PreparedStatement stmt = conn.prepareStatement(getRoomSQL)) {
+            stmt.setInt(1, bookingId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    roomId = rs.getInt("room_id");
+                }
+            }
+        }
+
+        if (roomId != -1) {
+            String updateRoomSQL = "UPDATE rooms SET is_available = TRUE WHERE room_id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(updateRoomSQL)) {
+                stmt.setInt(1, roomId);
+                stmt.executeUpdate();
+            }
+            System.out.println("Checked out successfully. Room is now available.");
+        } else {
+            System.out.println("Invalid booking ID.");
+        }
+    }
+}
