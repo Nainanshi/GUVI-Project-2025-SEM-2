@@ -1,0 +1,37 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS hotel_db;
+USE hotel_db;
+
+-- Guests table
+CREATE TABLE IF NOT EXISTS guests (
+    guest_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    phone VARCHAR(20),
+    email VARCHAR(100),
+    id_proof VARCHAR(50)
+);
+
+-- Rooms table
+CREATE TABLE IF NOT EXISTS rooms (
+    room_id INT AUTO_INCREMENT PRIMARY KEY,
+    room_number VARCHAR(10),
+    room_type VARCHAR(50),
+    is_available BOOLEAN DEFAULT TRUE
+);
+
+-- Bookings table
+CREATE TABLE IF NOT EXISTS bookings (
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,
+    guest_id INT,
+    room_id INT,
+    check_in DATE,
+    check_out DATE,
+    FOREIGN KEY (guest_id) REFERENCES guests(guest_id),
+    FOREIGN KEY (room_id) REFERENCES rooms(room_id)
+);
+
+-- Insert some sample rooms
+INSERT INTO rooms (room_number, room_type, is_available) VALUES
+('101', 'Single', TRUE),
+('102', 'Double', TRUE),
+('103', 'Suite', TRUE);
