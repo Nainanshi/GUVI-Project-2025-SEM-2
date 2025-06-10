@@ -1,1 +1,164 @@
+<!--index-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="b1">
+    
+    <h1 id="t">Welcome to hotel transylvania<h1>
+    <button id="m1" onclick="window.location.href='meow.html'">Already have a reservation</button>
+    <br>    
+    <button id="m2" onclick="window.location.href='meow2.html'">Do not have a resevation</button>
+    <br>    
+    <button id="m3" onclick="window.location.href='meow3.html'">Want a human manager</button>
+    
+</body>
+</html>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <p>Welcome to Hotel Transylvania</p>
+    <input type="text" name="booking ID" size=6>Booking ID</input>
+    <input type="text" name="Name on booking" size=20>Name on booking</input>
+    <input type="reset">
+    <input type="submit" value="Submit">
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        //think about making roomtype buttons so some amenities are not available for certain room types
+        <h1>Welcome to Hotel Transylvania</h1>
+        <h2>Reservation Form</h2>
+        <p>Please fill out the form below to make a reservation.</p>
+        <label for="RoomType">Room Type:</label>
+        <select name=RoomType>
+            <option value="" disabled selected>Select room type</option>
+            <option value="single">Single Room</option>
+            <option value="double">Double Room</option>
+            <option value="suite">Suite</option>
+            <option value="deluxe">Deluxe Room</option>
+            <option value="presidential">Presidential Suite</option>
+        </select>
+        <br>
+        <label for="Amenities">Amenities (1):</labe>
+        <select name=Amenities1 > 
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="spa">Spa</option>
+            <option value="gym">Gym Access</option>
+            <option value="pool">Pool Access</option>
+            <option value="parking">Parking</option>
+            <option value="airport">Airport Shuttle</option>   
+        </select>
+        <br>
+        <label for="Amenities">Amenities (2):</label>
+        <select name=Amenities2 > 
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="spa">Spa</option>
+            <option value="gym">Gym Access</option>
+            <option value="pool">Pool Access</option>
+            <option value="parking">Parking</option>
+            <option value="airport">Airport Shuttle</option>   
+        </select>
+        <br>
+        <label for="Amenities">Amenities (3):</label>
+        <select name=Amenities3 > 
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="spa">Spa</option>
+            <option value="gym">Gym Access</option>
+            <option value="pool">Pool Access</option>
+            <option value="parking">Parking</option>
+            <option value="airport">Airport Shuttle</option>   
+        </select>
+        <br>
+        <label for="Amenities">Amenities (4):</label>
+        <select name=Amenities4 > 
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+            <option value="spa">Spa</option>
+            <option value="gym">Gym Access</option>
+            <option value="pool">Pool Access</option>
+            <option value="parking">Parking</option>
+            <option value="airport">Airport Shuttle</option>
+        </select>
+        <br>
+        <label for="PaymentMethod">Payment Method:</label>
+        <select name=PaymentMethod>
+            <option value="" disabled selected>Select payment method</option>
+            <option value="credit_card">Credit Card</option>
+            <option value="debit_card">Debit Card</option>
+            <option value="cash">Cash</option>
+            <option value="online_payment">Online Payment</option>
+            <!--<option value="bank_transfer">Bhaiya</option>-->
+        </select>
+        <br>
+        <label for="NumberOfGuests">Number of Guests:</label>
+        <input type="number" name="NumberOfGuests" placeholder="Number of Guests" min="1" max="10" required>
+        <br>
+        <label for="CheckInTime">Check-in Time:</label>
+        <input type="text" name="CheckInTime" placeholder="Check-in Time (HH:MM)" required>
+        <br>
+        <label for="CheckOutTime">Check-out Time:</label>
+        <input type="text" name="CheckInDate" placeholder="(DD-MM-YYYY)" required>
+        <br>
+        <label for="CheckOutDate">Check-out Date:</label>
+        <input type="text" name="CheckOutDate" placeholder="(DD-MM-YYYY)" required>
+        <br>
+        <label for="GuestName">Guest Name:</label>
+        <input type="text" name="GuestName" placeholder="Guest Name" required>
+        <br>
+        <label for="ContactNumber">Contact Number:</label>
+        <input type="text" name="ContactNumber" placeholder="Contact Number" required>
+        <br>
+        <label for="Email">Email:</label>
+        <input type="email" name="Email" placeholder="Email Address" required>
+        <br>
+        <label for="SpecialRequests">Special Requests:</label>
+        <input type="text" name="SpecialRequests" placeholder="Special Requests (optional)">
+        <br>
+        <input type="reset" value="Reset">
+        <input type="submit" value="Submit">
+        <button onclick="window.location.href='index.html'">Back to Home</button>
+    </form>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p> call 123xxxx678 </p>
+</body>
+</html>
